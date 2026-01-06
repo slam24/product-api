@@ -183,7 +183,7 @@ Ejemplo POST /api/v1/products/{id}/prices:
 }
 
 
-Ejemplo DELETE /api/v1/products/{id}/prices/{priceId}:
+Ejemplo DELETE /api/v1/products/{id}/prices/{price}:
 No se necesita body, solo el ID en la ruta.
 
 ```
