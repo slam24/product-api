@@ -52,33 +52,7 @@ php artisan cache:clear
 ```bash
 La API utiliza Laravel Sanctum para autenticación basada en tokens.
 
-2.1 Registro
-
-Ruta: POST /api/v1/register
-
-Headers:
-
-Accept: application/json
-Content-Type: application/json
-
-
-Request Body:
-
-{
-    "name": "Usuario",
-    "email": "user@example.com",
-    "password": "password",
-    "password_confirmation": "password"
-}
-
-
-Response:
-
-{
-    "message": "User registered successfully"
-}
-
-2.2 Login
+2.1 Login
 
 Ruta: POST /api/v1/login
 

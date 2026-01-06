@@ -1,0 +1,394 @@
+openapi: 3.0.0
+info:
+  title: Products API
+  version: 1.0.0
+  description: >
+    API RESTful desarrollada en Laravel 12 con arquitectura hexagonal, autenticación con Sanctum y documentación Swagger.
+    Permite gestionar: productos, divisas y precios de productos en distintas monedas.
+servers:
+  - url: http://127.0.0.1:8000/api/v1
+    description: Servidor local
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: float
+        currency_id:
+          type: integer
+        tax_cost:
+          type: number
+          format: float
+        manufacturing_cost:
+          type: number
+          format: float
+      required:
+        - name
+        - description
+        - price
+        - currency_id
+        - tax_cost
+        - manufacturing_cost
+    Currency:
+      type: object
+      properties:
+        name:
+          type: string
+        symbol:
+          type: string
+        exchange_rate:
+          type: number
+          format: float
+      required:
+        - name
+        - symbol
+        - exchange_rate
+    ProductPrice:
+      type: object
+      properties:
+        currency_id:
+          type: integer
+        price:
+          type: number
+          format: float
+      required:
+        - currency_id
+        - price
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - email
+        - password
+
+security:
+  - BearerAuth: []
+
+paths:
+  /login:
+    post:
+      tags:
+        - Auth
+      summary: Login de usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Token de acceso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJ0eXAiOiJKV1QiLCJh...
+
+  /products:
+    get:
+      tags:
+        - Productos
+      summary: Listar todos los productos
+      responses:
+        "200":
+          description: Lista de productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+      security:
+        - BearerAuth: []
+    post:
+      tags:
+        - Productos
+      summary: Crear un nuevo producto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        "201":
+          description: Producto creado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+      security:
+        - BearerAuth: []
+
+  /products/{id}:
+    get:
+      tags:
+        - Productos
+      summary: Obtener un producto por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Producto
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+      security:
+        - BearerAuth: []
+    put:
+      tags:
+        - Productos
+      summary: Actualizar un producto
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        "200":
+          description: Producto actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+      security:
+        - BearerAuth: []
+    delete:
+      tags:
+        - Productos
+      summary: Eliminar un producto
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Producto eliminado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Deleted
+      security:
+        - BearerAuth: []
+
+  /currencies:
+    get:
+      tags:
+        - Currencies
+      summary: Listar todas las divisas
+      responses:
+        "200":
+          description: Lista de divisas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Currency"
+      security:
+        - BearerAuth: []
+    post:
+      tags:
+        - Currencies
+      summary: Crear una nueva divisa
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Currency"
+      responses:
+        "201":
+          description: Divisa creada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Currency"
+      security:
+        - BearerAuth: []
+
+  /currencies/{id}:
+    get:
+      tags:
+        - Currencies
+      summary: Obtener una divisa por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Divisa
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Currency"
+      security:
+        - BearerAuth: []
+    put:
+      tags:
+        - Currencies
+      summary: Actualizar una divisa
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Currency"
+      responses:
+        "200":
+          description: Divisa actualizada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Currency"
+      security:
+        - BearerAuth: []
+    delete:
+      tags:
+        - Currencies
+      summary: Eliminar una divisa
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Divisa eliminada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Deleted
+      security:
+        - BearerAuth: []
+
+  /products/{id}/prices:
+    get:
+      tags:
+        - Product Prices
+      summary: Listar precios del producto
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Lista de precios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductPrice"
+      security:
+        - BearerAuth: []
+    post:
+      tags:
+        - Product Prices
+      summary: Crear un precio para el producto
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductPrice"
+      responses:
+        "201":
+          description: Precio creado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductPrice"
+      security:
+        - BearerAuth: []
+
+  /products/{id}/prices/{price}:
+    delete:
+      tags:
+        - Product Prices
+      summary: Eliminar un precio del producto
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: price
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Precio eliminado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Deleted
+      security:
+        - BearerAuth: []
