@@ -173,7 +173,7 @@ Ejemplo PUT /api/v1/currencies/{id}:
 Método	Ruta	Descripción
 GET	/api/v1/products/{id}/prices	Listar precios del producto
 POST	/api/v1/products/{id}/prices	Crear un precio para el producto
-DELETE	/api/v1/products/{id}/prices/{priceId}	Eliminar un precio del producto
+DELETE	/api/v1/products/{id}/prices/{price}	Eliminar un precio del producto
 
 Ejemplo POST /api/v1/products/{id}/prices:
 
@@ -205,3 +205,9 @@ Iniciar servidor Laravel:
 php artisan serve
 
 La API estará disponible en: http://127.0.0.1:8000
+
+## 5️⃣ Pruebas
+
+```bash
+    php artisan test
+```
