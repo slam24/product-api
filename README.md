@@ -42,6 +42,9 @@ DB_PASSWORD=secret
 # Ejecutar migraciones
 php artisan migrate
 
+# Ejecutar seeders
+php artisan db:seed
+
 # Limpiar caché
 php artisan config:clear
 php artisan cache:clear
