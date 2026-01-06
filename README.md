@@ -45,9 +45,11 @@ php artisan migrate
 # Limpiar caché
 php artisan config:clear
 php artisan cache:clear
+```
 
 ## 2️⃣ Autenticación
 
+```bash
 La API utiliza Laravel Sanctum para autenticación basada en tokens.
 
 2.1 Registro
@@ -106,8 +108,11 @@ Uso del token para llamadas autenticadas:
 Authorization: Bearer <token>
 Accept: application/json
 Content-Type: application/json
+```
 
 ## 3️⃣ Endpoints de la API
+
+```bash
 3.1 Productos
 Método	Ruta	Descripción
 GET	/api/v1/products	Listar todos los productos
@@ -181,6 +186,8 @@ Ejemplo POST /api/v1/products/{id}/prices:
 Ejemplo DELETE /api/v1/products/{id}/prices/{priceId}:
 No se necesita body, solo el ID en la ruta.
 
+```
+
 ## 4️⃣ Notas
 
 Todos los endpoints requieren autenticación con token Bearer después de login.
@@ -197,6 +204,4 @@ Iniciar servidor Laravel:
 
 php artisan serve
 
-
 La API estará disponible en: http://127.0.0.1:8000
-```
