@@ -12,6 +12,13 @@ use App\Application\UseCases\Product\CreateProductUseCase;
  *     name="Products",
  *     description="API Endpoints for managing products"
  * )
+ * 
+ * @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer",
+ *     bearerFormat="JWT"
+ * )
  */
 class ProductController extends Controller
 {
@@ -28,6 +35,7 @@ class ProductController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="List of products",
+     *         security={{"bearerAuth":{}}},
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(

@@ -12,6 +12,13 @@ use App\Application\UseCases\Currency\CreateCurrencyUseCase;
  *     name="Currencies",
  *     description="Endpoints para gestionar divisas"
  * )
+ * 
+ * @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer",
+ *     bearerFormat="JWT"
+ * )
  */
 class CurrencyController extends Controller
 {

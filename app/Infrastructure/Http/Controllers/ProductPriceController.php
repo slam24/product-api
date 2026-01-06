@@ -12,6 +12,13 @@ use App\Application\UseCases\ProductPrice\CreateProductPriceUseCase;
  *     name="Product Prices",
  *     description="API Endpoints for managing product prices"
  * )
+ * 
+ * @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer",
+ *     bearerFormat="JWT"
+ * )
  */
 class ProductPriceController extends Controller
 {
